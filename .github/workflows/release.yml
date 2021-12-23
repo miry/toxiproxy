@@ -34,7 +34,7 @@ jobs:
       -
         name: Verify tag signature
         run: |
-          version=${GITHUB_REF#refs/tags/v*}
+          version=${GITHUB_REF#refs/tags/*}
           git tag -v $version
           exit 1
 
