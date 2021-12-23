@@ -23,6 +23,22 @@ jobs:
           fetch-depth: 0
 
       -
+        name: GPG config
+        run: |
+          mkdir -p ~/.gnupg
+          cat << EOF >> ~/.gnupg/options
+          keyserver keys.openpgp.org
+          keyserver-options auto-key-retrieve
+          EOF
+
+      -
+        name: Verify tag signature
+        run: |
+          version=${GITHUB_REF#refs/tags/v*}
+          git tag -v $version
+          exit 1
+
+      -
         name: Log into registry ${{ env.REGISTRY }}
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
