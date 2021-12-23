@@ -34,6 +34,9 @@ jobs:
       -
         name: Verify tag signature
         run: |
+          # NOTE: Solve the problem with Github action checkout https://github.com/actions/checkout/issues/290
+          git fetch --tags --force
+
           version=${GITHUB_REF#refs/tags/*}
           git show $version
           git tag -v $version
